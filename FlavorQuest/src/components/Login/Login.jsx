@@ -3,6 +3,7 @@ import { AuthContext } from "../Authprovider/Authprovider";
 import { useNavigate, Link } from "react-router-dom";
 import { sendPasswordResetEmail } from "firebase/auth";
 import Swal from "sweetalert2";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
     const { loginWithEmail, loginWithGoogle } = useContext(AuthContext);
@@ -10,6 +11,7 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false); // State for password visibility
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -104,7 +106,8 @@ const Login = () => {
                     <h1 className="text-5xl font-bold">Login now!</h1>
                     <p className="py-6">
                         Access your account to manage your profile, view personalized content,
-                        and stay updated. If you don't have an account, sign up today to unlock all features! <Link to="/register" className="link link-primary">
+                        and stay updated. If you don't have an account, sign up today to unlock all features!{" "}
+                        <Link to="/register" className="link link-primary">
                             Register
                         </Link>
                     </p>
@@ -132,18 +135,28 @@ const Login = () => {
                             />
                         </div>
 
-                        <div className="form-control">
+                        <div className="form-control relative">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"} // Toggles input type
                                 placeholder="password"
                                 className="input input-bordered"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                             />
+                            <span
+                                className="absolute right-3 top-10 cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? (
+                                    <AiFillEyeInvisible size={20} />
+                                ) : (
+                                    <AiFillEye size={20} />
+                                )}
+                            </span>
                             <label className="label">
                                 <a
                                     href="#"
@@ -174,8 +187,6 @@ const Login = () => {
                             </button>
                         </div>
                     </form>
-
-                  
                 </div>
             </div>
         </div>

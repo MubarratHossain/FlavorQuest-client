@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../Authprovider/Authprovider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const Register = () => {
-    const { createUser, loginWithGoogle,isRegistered } = useContext(AuthContext);
+    const { createUser, loginWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -15,7 +16,8 @@ const Register = () => {
     });
 
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false); 
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -25,68 +27,79 @@ const Register = () => {
         }));
     };
 
+    const validatePassword = (password) => {
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const isLongEnough = password.length >= 6;
+
+        if (!hasUppercase) return "Password must include at least one uppercase letter.";
+        if (!hasLowercase) return "Password must include at least one lowercase letter.";
+        if (!isLongEnough) return "Password must be at least 6 characters long.";
+        return "";
+    };
+
     const handleRegister = async (e) => {
         e.preventDefault();
         setError("");
-        setLoading(true); 
-    
+        setLoading(true);
+
         try {
             const { name, email, password, photoURL } = formData;
             if (!name || !email || !password || !photoURL) {
                 setError("All fields are required.");
-                setLoading(false); 
+                setLoading(false);
                 return;
             }
-    
-            
+
+            const passwordError = validatePassword(password);
+            if (passwordError) {
+                setError(passwordError);
+                setLoading(false);
+                return;
+            }
+
             await createUser(email, password, name, photoURL);
-    
-            
+
             const response = await fetch("http://localhost:5000/users", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, photoURL,password }),
+                body: JSON.stringify({ name, email, photoURL, password }),
             });
-    
+
             if (!response.ok) {
                 const data = await response.json();
                 throw new Error(data.error || "Registration failed");
             }
-    
-            
+
             Swal.fire({
                 title: "Success!",
                 text: "Account created successfully! Redirecting to the login page.",
                 icon: "success",
                 confirmButtonText: "OK",
             }).then(() => {
-                
                 navigate("/login");
             });
         } catch (err) {
-            console.error("Registration error:", err);
-            
             Swal.fire({
                 title: "Error!",
                 text: err.message || "Something went wrong. Please try again.",
                 icon: "error",
                 confirmButtonText: "OK",
             });
-            setError(err.message); 
+            setError(err.message);
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
     const handleGoogleRegister = async () => {
         setError("");
-        setLoading(true); 
+        setLoading(true);
         try {
             await loginWithGoogle();
             navigate("/");
         } catch (err) {
             setError(err.message);
-            
             Swal.fire({
                 title: "Error!",
                 text: err.message || "Something went wrong. Please try again.",
@@ -94,7 +107,7 @@ const Register = () => {
                 confirmButtonText: "OK",
             });
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
@@ -165,15 +178,23 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                className="input input-bordered"
-                                value={formData.password}
-                                onChange={handleInputChange}
-                                name="password"
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Password"
+                                    className="input input-bordered w-full"
+                                    value={formData.password}
+                                    onChange={handleInputChange}
+                                    name="password"
+                                    required
+                                />
+                                <div
+                                    className="absolute right-2 top-2 cursor-pointer"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? <AiFillEyeInvisible size={24} /> : <AiFillEye size={24} />}
+                                </div>
+                            </div>
                         </div>
 
                         <div className="form-control mt-6">
@@ -195,6 +216,12 @@ const Register = () => {
                             </button>
                         </div>
                     </form>
+                    <p className="text-center my-4">
+                        Already have an account?{" "}
+                        <Link to="/login" className="text-blue-500 underline">
+                            Login here
+                        </Link>
+                    </p>
                 </div>
             </div>
         </div>
