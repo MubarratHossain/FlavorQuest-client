@@ -1,52 +1,100 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../Authprovider/Authprovider";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
-    const { createUser, loginWithGoogle } = useContext(AuthContext);
+    const { createUser, loginWithGoogle,isRegistered } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [photoURL, setPhotoURL] = useState("");
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+        photoURL: ""
+    });
+
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false); 
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
 
     const handleRegister = async (e) => {
         e.preventDefault();
         setError("");
-
-        if (!name || !photoURL) {
-            setError("Please provide both your name and photo URL.");
-            return;
-        }
-
+        setLoading(true); 
+    
         try {
+            const { name, email, password, photoURL } = formData;
+            if (!name || !email || !password || !photoURL) {
+                setError("All fields are required.");
+                setLoading(false); 
+                return;
+            }
+    
+            
+            await createUser(email, password, name, photoURL);
+    
+            
             const response = await fetch("http://localhost:5000/users", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, password, photoURL }),
+                body: JSON.stringify({ name, email, photoURL,password }),
             });
     
-            const data = await response.json();
             if (!response.ok) {
+                const data = await response.json();
                 throw new Error(data.error || "Registration failed");
             }
     
-            alert("Registration successful!");
-            navigate("/");
+            
+            Swal.fire({
+                title: "Success!",
+                text: "Account created successfully! Redirecting to the login page.",
+                icon: "success",
+                confirmButtonText: "OK",
+            }).then(() => {
+                
+                navigate("/login");
+            });
         } catch (err) {
-            setError(err.message);
+            console.error("Registration error:", err);
+            
+            Swal.fire({
+                title: "Error!",
+                text: err.message || "Something went wrong. Please try again.",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
+            setError(err.message); 
+        } finally {
+            setLoading(false); 
         }
     };
 
     const handleGoogleRegister = async () => {
         setError("");
+        setLoading(true); 
         try {
             await loginWithGoogle();
             navigate("/");
         } catch (err) {
             setError(err.message);
+            
+            Swal.fire({
+                title: "Error!",
+                text: err.message || "Something went wrong. Please try again.",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
+        } finally {
+            setLoading(false); 
         }
     };
 
@@ -76,8 +124,9 @@ const Register = () => {
                                 type="text"
                                 placeholder="Your name"
                                 className="input input-bordered"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                name="name"
                                 required
                             />
                         </div>
@@ -90,8 +139,9 @@ const Register = () => {
                                 type="email"
                                 placeholder="Email"
                                 className="input input-bordered"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                name="email"
                                 required
                             />
                         </div>
@@ -104,8 +154,9 @@ const Register = () => {
                                 type="url"
                                 placeholder="Photo URL"
                                 className="input input-bordered"
-                                value={photoURL}
-                                onChange={(e) => setPhotoURL(e.target.value)}
+                                value={formData.photoURL}
+                                onChange={handleInputChange}
+                                name="photoURL"
                                 required
                             />
                         </div>
@@ -118,15 +169,16 @@ const Register = () => {
                                 type="password"
                                 placeholder="Password"
                                 className="input input-bordered"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                value={formData.password}
+                                onChange={handleInputChange}
+                                name="password"
                                 required
                             />
                         </div>
 
                         <div className="form-control mt-6">
-                            <button type="submit" className="btn btn-primary">
-                                Register
+                            <button type="submit" className="btn btn-primary" disabled={loading}>
+                                {loading ? "Registering..." : "Register"}
                             </button>
                         </div>
 
@@ -137,8 +189,9 @@ const Register = () => {
                                 type="button"
                                 className="btn btn-outline btn-secondary"
                                 onClick={handleGoogleRegister}
+                                disabled={loading}
                             >
-                                Register with Google
+                                {loading ? "Registering..." : "Register with Google"}
                             </button>
                         </div>
                     </form>

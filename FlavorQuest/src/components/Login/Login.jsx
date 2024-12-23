@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../Authprovider/Authprovider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { sendPasswordResetEmail } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const { loginWithEmail, loginWithGoogle } = useContext(AuthContext);
@@ -19,9 +20,21 @@ const Login = () => {
 
         try {
             await loginWithEmail(email, password);
-            alert("Login successful!");
+            Swal.fire({
+                icon: "success",
+                title: "Login Successful!",
+                text: "Welcome!",
+                timer: 2000,
+                showConfirmButton: false,
+            });
             navigate("/");
         } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Login Failed",
+                text: err.message || "Please try again.",
+                showConfirmButton: true,
+            });
             setError(err.message || "An unexpected error occurred.");
         } finally {
             setLoading(false);
@@ -34,9 +47,21 @@ const Login = () => {
 
         try {
             await loginWithGoogle();
-            alert("Logged in with Google!");
+            Swal.fire({
+                icon: "success",
+                title: "Logged in with Google!",
+                text: "Welcome!",
+                timer: 2000,
+                showConfirmButton: false,
+            });
             navigate("/");
         } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Google Login Failed",
+                text: err.message || "Please try again.",
+                showConfirmButton: true,
+            });
             setError(err.message || "An unexpected error occurred.");
         } finally {
             setLoading(false);
@@ -45,13 +70,29 @@ const Login = () => {
 
     const handleForgotPassword = async () => {
         if (!email) {
-            alert("Please enter your email to reset your password.");
+            Swal.fire({
+                icon: "warning",
+                title: "Email Required",
+                text: "Please enter your email to reset your password.",
+                showConfirmButton: true,
+            });
             return;
         }
         try {
             await sendPasswordResetEmail(email);
-            alert("Password reset email sent!");
+            Swal.fire({
+                icon: "success",
+                title: "Password Reset Email Sent",
+                text: "Check your inbox for further instructions.",
+                showConfirmButton: true,
+            });
         } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: err.message || "An error occurred while resetting the password.",
+                showConfirmButton: true,
+            });
             setError(err.message || "An error occurred while resetting the password.");
         }
     };
@@ -63,7 +104,9 @@ const Login = () => {
                     <h1 className="text-5xl font-bold">Login now!</h1>
                     <p className="py-6">
                         Access your account to manage your profile, view personalized content,
-                        and stay updated. If you don’t have an account, sign up today to unlock all features!
+                        and stay updated. If you don't have an account, sign up today to unlock all features! <Link to="/register" className="link link-primary">
+                            Register
+                        </Link>
                     </p>
                 </div>
 
@@ -131,6 +174,8 @@ const Login = () => {
                             </button>
                         </div>
                     </form>
+
+                  
                 </div>
             </div>
         </div>

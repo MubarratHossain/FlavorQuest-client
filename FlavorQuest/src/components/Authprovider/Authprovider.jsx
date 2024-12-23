@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isRegistered, setIsRegistered] = useState(false);
 
     const createUser = async (email, password, name, photoURL) => {
         setLoading(true);
@@ -26,9 +27,10 @@ const AuthProvider = ({ children }) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const newUser = userCredential.user;
+            console.log('Registered User', newUser.email);
 
             await updateProfile(newUser, { displayName: name, photoURL });
-            setUser({ ...newUser, displayName: name, photoURL });
+            setIsRegistered(false); 
         } catch (err) {
             setError(err.message);
             throw err;
@@ -43,6 +45,17 @@ const AuthProvider = ({ children }) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             setUser(userCredential.user);
+            setIsRegistered(true); 
+
+            const user = { email: userCredential.user.email };
+            axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+                .then(res => {
+                    console.log('login token', res.data);
+                    setIsRegistered(true); 
+                })
+                .catch(err => console.error(err))
+                .finally(() => setLoading(false));
+
         } catch (err) {
             setError(err.message);
             throw err;
@@ -57,6 +70,17 @@ const AuthProvider = ({ children }) => {
         try {
             const userCredential = await signInWithPopup(auth, googleProvider);
             setUser(userCredential.user);
+            setIsRegistered(false); 
+
+            const user = { email: userCredential.user.email };
+            axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+                .then(res => {
+                    console.log('login token', res.data);
+                    setIsRegistered(true); 
+                })
+                .catch(err => console.error(err))
+                .finally(() => setLoading(false));
+
         } catch (err) {
             setError(err.message);
             throw err;
@@ -71,6 +95,7 @@ const AuthProvider = ({ children }) => {
         try {
             await signOut(auth);
             setUser(null);
+            setIsRegistered(false); 
         } catch (err) {
             setError(err.message);
             throw err;
@@ -82,33 +107,27 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-    
+            setIsRegistered(false); 
+            
             if (currentUser?.email) {
-                const user = { email: currentUser.email };
-                axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
-                    .then(res => {
-                       console.log('login token',res.data); 
-                    })
-                    .catch(err => console.error(err))
-                    .finally(() => setLoading(false)); 
+                setLoading(false);
             } else {
-               axios.post('http://localhost:5000/logout',{},{withCredentials:true})
-               .then(res => 
-                {console.log('logout',res.data);
-                    setLoading(false);
-
-                }) 
+                axios.post('http://localhost:5000/logout', {}, { withCredentials: true })
+                    .then(res => {
+                        console.log('logout', res.data);
+                        setLoading(false);
+                    });
             }
         });
-    
-        return () => unsubscribe(); 
+
+        return () => unsubscribe();
     }, []);
-    
 
     const authInfo = {
         user,
         loading,
         error,
+        isRegistered,
         createUser,
         loginWithEmail,
         loginWithGoogle,

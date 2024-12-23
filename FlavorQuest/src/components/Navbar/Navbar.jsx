@@ -1,22 +1,42 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Authprovider/Authprovider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
-    const { user, logout } = useContext(AuthContext); 
+    const { user,isRegistered, logout } = useContext(AuthContext);
 
     const handleLogout = async () => {
-        try {
-            await logout(); 
-            alert("Logged out successfully!");
-        } catch (err) {
-            console.error("Logout failed:", err.message);
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will be logged out!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, logout!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await logout();
+                    Swal.fire(
+                        "Logged Out!",
+                        "You have been successfully logged out.",
+                        "success"
+                    );
+                } catch (err) {
+                    Swal.fire(
+                        "Error!",
+                        err.message || "Something went wrong while logging out.",
+                        "error"
+                    );
+                }
+            }
+        });
     };
 
     return (
         <div className="navbar bg-base-100">
-            
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -37,29 +57,23 @@ const Navbar = () => {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <Link to="/"><li><a>Home</a></li></Link>
-                        <li>
-                         <a>All Food</a>
-                        </li>
+                        <li><a>All Food</a></li>
                         <li><a>Gallery</a></li>
                     </ul>
                 </div>
                 <a className="btn btn-ghost text-xl">FlavorQuest</a>
             </div>
 
-            
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     <Link to="/"><li><a>Home</a></li></Link>
-                    <li>
-                      <a>All Food</a>
-                    </li>
+                    <li><a>All Food</a></li>
                     <li><a>Gallery</a></li>
                 </ul>
             </div>
 
-            
             <div className="navbar-end gap-2">
-                {user ? ( 
+                {isRegistered ? (
                     <>
                         <div className="flex items-center gap-2">
                             <img
