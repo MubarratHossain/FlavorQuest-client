@@ -12,6 +12,9 @@ import Register from './components/Register/Register.jsx';
 import Authprovider from './components/Authprovider/Authprovider.jsx';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx';
 import AddFoods from './components/AddFoods/AddFoods.jsx';
+import AllFoods from './components/AllFoods/AllFoods.jsx';
+import Food from './components/Food/Food.jsx';
+import Purchase from './components/Purchase/Purchase.jsx';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
       {
         path:'/addFoods',
         element:<PrivateRoute><AddFoods></AddFoods></PrivateRoute>,
+      },
+      {
+        path:'/allFoods',
+        element:<AllFoods></AllFoods>,
+      },
+      {
+        path:'/food/:id',
+        element:<Food></Food>,
+      },
+      {
+        path:'/purchase/:id',
+        element:<Purchase></Purchase>,
       },
      
     ],

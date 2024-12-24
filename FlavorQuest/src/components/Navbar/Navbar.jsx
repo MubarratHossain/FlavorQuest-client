@@ -73,9 +73,9 @@ const Navbar = () => {
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[10] mt-3 w-52 p-2 shadow"
                     >
                         <li><a>Home</a></li>
-                        <li>
+                        <Link to='/allFoods'><li>
                             <a>All Foods</a>
-                        </li>
+                        </li></Link>
                         <li><a>Gallery</a></li>
                     </ul>
                 </div>
@@ -91,11 +91,11 @@ const Navbar = () => {
                             </a>
                         </li>
                     </Link>
-                    <li>
+                   <Link to='/allFoods'> <li>
                         <a className="flex items-center gap-2 hover:text-lg text-sm lg:text-base">
                             <FaUtensils /> All Foods
                         </a>
-                    </li>
+                    </li></Link>
                     <li>
                         <a className="flex items-center gap-2 hover:text-lg text-sm lg:text-base">
                             <FaImages /> Gallery
