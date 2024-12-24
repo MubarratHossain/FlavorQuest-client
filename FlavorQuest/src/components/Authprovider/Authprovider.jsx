@@ -107,21 +107,22 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            setIsRegistered(false); 
-            
-            if (currentUser?.email) {
-                setLoading(false);
+            if (currentUser) {
+                setIsRegistered(true);
             } else {
-                axios.post('http://localhost:5000/logout', {}, { withCredentials: true })
+                axios
+                    .post('http://localhost:5000/logout', {}, { withCredentials: true })
                     .then(res => {
                         console.log('logout', res.data);
-                        setLoading(false);
-                    });
+                    })
+                    .catch(err => console.error(err));
             }
+            setLoading(false); 
         });
-
+    
         return () => unsubscribe();
     }, []);
+    
 
     const authInfo = {
         user,
