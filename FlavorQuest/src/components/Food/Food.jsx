@@ -3,21 +3,25 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
 const Food = () => {
-    const { id } = useParams(); 
-    const navigate = useNavigate(); 
+    const { id } = useParams();
+    const navigate = useNavigate();
     const [food, setFood] = useState(null);
 
-    useEffect(() => {
-        
+    const fetchFoodDetails = () => {
         axios
             .get(`http://localhost:5000/foods/${id}`)
             .then((response) => setFood(response.data))
             .catch((error) => console.error("Error fetching food details:", error));
+    };
+
+    useEffect(() => {
+        fetchFoodDetails();
     }, [id]);
 
     const handlePurchase = () => {
-        
         navigate(`/purchase/${id}`);
+        
+        fetchFoodDetails();
     };
 
     if (!food) {
@@ -30,7 +34,7 @@ const Food = () => {
                 <img
                     src={food.foodImage}
                     alt={food.foodName}
-                    className="w-full h-72 object-cover rounded-md mb-3"
+                    className="w-full h-full object-cover rounded-xl shadow-lg mb-3"
                 />
                 <h2 className="text-3xl font-bold mb-2">{food.foodName}</h2>
                 <p className="text-gray-600 mb-2">Category: {food.foodCategory}</p>
@@ -44,7 +48,6 @@ const Food = () => {
                     <p className="text-green-500 mb-4">In Stock</p>
                 )}
 
-                
                 <button
                     onClick={handlePurchase}
                     className="bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-600 transition-all duration-300"

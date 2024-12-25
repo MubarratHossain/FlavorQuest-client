@@ -11,7 +11,7 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false); // State for password visibility
+    const [showPassword, setShowPassword] = useState(false); 
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -140,7 +140,7 @@ const Login = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input
-                                type={showPassword ? "text" : "password"} // Toggles input type
+                                type={showPassword ? "text" : "password"} 
                                 placeholder="password"
                                 className="input input-bordered"
                                 value={password}
