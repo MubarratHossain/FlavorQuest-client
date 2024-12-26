@@ -10,15 +10,15 @@ import {
     FaUserPlus,
     FaSignOutAlt,
     FaUserCircle,
-    FaMoon, 
-    FaSun, 
+    FaMoon,
+    FaSun, FaPlus, FaListAlt, FaShoppingCart, FaTag,
 } from "react-icons/fa";
 
 const Navbar = () => {
     const { user, isRegistered, logout } = useContext(AuthContext);
     const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false); 
-   
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
     useEffect(() => {
         const savedMode = localStorage.getItem("darkMode");
         if (savedMode === "true") {
@@ -30,7 +30,7 @@ const Navbar = () => {
         }
     }, []);
 
-    
+
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
         const theme = !isDarkMode ? "dark" : "light";
@@ -91,9 +91,9 @@ const Navbar = () => {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-green-100 rounded-box z-50 mt-3 w-64 p-3 shadow-xl"
                     >
-                        <Link to='/'><li><a>Home</a></li></Link>
-                        <Link to='/allFoods'><li><a>All Foods</a></li></Link>
-                        <Link to='/gallery'><li><a>Gallery</a></li></Link>
+                        <Link to='/'><li><a> <FaHome /> Home</a></li></Link>
+                        <Link to='/allFoods'><li><a><FaUtensils />     All Foods</a></li></Link>
+                        <Link to='/gallery'><li><a>  <FaImages />Gallery</a></li></Link>
                     </ul>
                 </div>
                 <a className=" btn-ghost text-xl">FlavorQuest</a>
@@ -115,16 +115,16 @@ const Navbar = () => {
                             </a>
                         </li>
                     </Link>
-                    <li>
+                    <Link to='/gallery'> <li>
                         <a className="flex items-center gap-2 hover:text-lg text-sm lg:text-base">
                             <FaImages /> Gallery
                         </a>
-                    </li>
+                    </li></Link>
                 </ul>
             </div>
 
             <div className="navbar-end gap-2">
-               
+
                 <button
                     onClick={toggleDarkMode}
                     className="text-xl  rounded-full hover:bg-gray-200"
@@ -138,33 +138,41 @@ const Navbar = () => {
                             src={user.photoURL || "https://via.placeholder.com/40"}
                             alt="User Avatar"
                             className="w-10 h-10 rounded-full border cursor-pointer"
-                            onClick={() => setIsProfileMenuOpen((prev) => !prev)} 
+                            onClick={() => setIsProfileMenuOpen((prev) => !prev)}
                         />
                         <div
-                            className={`${
-                                isProfileMenuOpen ? "block" : "hidden"
-                            } absolute top-12 right-0 bg-white dark:bg-gray-800 shadow-xl rounded-lg p-4 w-64 z-50`}
+                            className={`${isProfileMenuOpen ? "block" : "hidden"
+                                } absolute top-12 right-0 bg-white dark:bg-gray-800 shadow-xl rounded-lg p-4 w-64 z-50`}
                         >
                             <ul>
                                 <li>
-                                    <Link to="/addFoods" className="block p-2 text-sm text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
-                                        Add Food
+                                    <Link
+                                        to="/addFoods"
+                                        className="flex items-center gap-2 block p-2 text-sm text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
+                                    >
+                                        <FaPlus /> Add Food
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/myOrders" className="block p-2 text-sm text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
-                                        My Orders
+                                    <Link
+                                        to="/myOrders"
+                                        className="flex items-center gap-2 block p-2 text-sm text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
+                                    >
+                                        <FaListAlt /> My Orders
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/myFoods" className="block p-2 text-sm text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
-                                        My Foods
+                                    <Link
+                                        to="/myFoods"
+                                        className="flex items-center gap-2 block p-2 text-sm text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
+                                    >
+                                        <FaShoppingCart /> My Foods
                                     </Link>
                                 </li>
                                 <li>
                                     <button
                                         onClick={handleLogout}
-                                        className="block p-2 text-sm text-red-500 dark:text-red-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
+                                        className="flex items-center gap-2 block p-2 text-sm text-red-500 dark:text-red-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md"
                                     >
                                         <FaSignOutAlt /> Logout
                                     </button>
