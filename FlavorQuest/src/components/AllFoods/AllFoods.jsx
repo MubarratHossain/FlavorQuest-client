@@ -44,11 +44,11 @@ const AllFoods = () => {
                     className="p-4 text-lg border-2 border-gray-300 placeholder-gray-500 rounded-lg mb-5 w-full shadow-xl focus:outline-none focus:ring-4 focus:ring-green-500 max-w-[80%] mx-auto"
                 />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 ">
                     {filteredFoods.map((food) => (
                         <div
                             key={food._id}
-                            className="bg-white p-5 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+                            className="bg-white p-5 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700"
                         >
                             <img
                                 src={food.foodImage}

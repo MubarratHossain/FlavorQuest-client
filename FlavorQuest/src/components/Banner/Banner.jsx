@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';  
+import { Link, useLocation } from 'react-router-dom';  
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';  
 import { Navigation, Pagination } from 'swiper/modules';
@@ -41,9 +41,9 @@ const Banner = () => {
               <p className="mb-5 text-lg text-white font-semibold">
                 Explore our extensive menu with a variety of cuisines, from quick snacks to hearty meals.
               </p>
-              <button className="btn bg-gradient-to-r from-green-400 via-yellow-400 to-orange-400 text-black shadow-lg transform hover:scale-105 transition">
+              <Link to='allFoods'><button className="btn bg-gradient-to-r from-green-400 via-yellow-400 to-orange-400 text-black shadow-lg transform hover:scale-105 transition">
                 <FaUtensils className="inline mr-2" /> All Foods
-              </button>
+              </button></Link>
             </div>
           </div>
         </div>
