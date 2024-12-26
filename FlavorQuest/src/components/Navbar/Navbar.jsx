@@ -93,7 +93,7 @@ const Navbar = () => {
                     >
                         <Link to='/'><li><a>Home</a></li></Link>
                         <Link to='/allFoods'><li><a>All Foods</a></li></Link>
-                        <li><a>Gallery</a></li>
+                        <Link to='/gallery'><li><a>Gallery</a></li></Link>
                     </ul>
                 </div>
                 <a className=" btn-ghost text-xl">FlavorQuest</a>
