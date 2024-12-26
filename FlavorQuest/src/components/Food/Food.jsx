@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa"; 
 
 const Food = () => {
     const { id } = useParams();
@@ -20,8 +21,11 @@ const Food = () => {
 
     const handlePurchase = () => {
         navigate(`/purchase/${id}`);
-        
         fetchFoodDetails();
+    };
+
+    const handleGoBack = () => {
+        navigate("/"); 
     };
 
     if (!food) {
@@ -30,7 +34,17 @@ const Food = () => {
 
     return (
         <div className="px-5 py-5 max-w-4xl mx-auto">
-            <div className="bg-white p-5 rounded-lg shadow-md">
+           
+            <button
+                onClick={handleGoBack}
+                className="flex items-center absolute top-15 left-5 text-green-600 p-2 rounded-full shadow-md"
+            >
+                <FaArrowLeft size={16} className="mr-2" /> 
+                Go back
+            </button>
+
+
+            <div className="bg-white p-5 rounded-lg shadow-md mt-10">
                 <img
                     src={food.foodImage}
                     alt={food.foodName}

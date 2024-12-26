@@ -35,7 +35,7 @@ const AddFoods = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/foods', foodData);
+            const response = await axios.post('http://localhost:5000/foods', foodData,{withCredentials:true,});
             if (response.status === 201) {
                 Swal.fire({
                     title: 'Success!',

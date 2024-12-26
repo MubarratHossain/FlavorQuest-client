@@ -12,7 +12,11 @@ const MyOrders = () => {
     const fetchOrders = async () => {
       try {
         
-        const purchasesResponse = await fetch("http://localhost:5000/purchases");
+        const purchasesResponse = await fetch("http://localhost:5000/purchases", {
+            
+            credentials: "include", 
+        });
+        
         const purchasesData = await purchasesResponse.json();
 
         

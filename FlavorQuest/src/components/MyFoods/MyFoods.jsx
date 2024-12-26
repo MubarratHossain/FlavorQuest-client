@@ -13,7 +13,7 @@ const MyFoods = () => {
     useEffect(() => {
         const fetchMyFoods = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/foods');
+                const response = await axios.get('http://localhost:5000/foods?email',{withCredentials:true});
                 const userFoods = response.data.filter(food => food.addedBy.email === user?.email);
                 setFoods(userFoods);
             } catch (error) {
