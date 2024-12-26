@@ -32,7 +32,7 @@ const Home = () => {
     useEffect(() => {
         const fetchFoods = async () => {
             try {
-                const response = await fetch("http://localhost:5000/foods");
+                const response = await fetch("https://flavor-server-side.vercel.app/foods");
                 const data = await response.json();
                 setFoods(data);
             } catch (error) {
@@ -46,7 +46,7 @@ const Home = () => {
     useEffect(() => {
         const fetchPurchases = async () => {
             try {
-                const response = await fetch("http://localhost:5000/purchases");
+                const response = await fetch("https://flavor-server-side.vercel.app/purchases");
                 const data = await response.json();
 
                 const groupedFoods = data.reduce((acc, item) => {
@@ -112,7 +112,7 @@ const Home = () => {
                 </div>
 
                 <div className="lg:w-3/4 bg-slate-800 border border-gray-300 rounded-lg p-6 shadow-lg">
-                    <h2 className="text-2xl font-semibold mb-6 text-center text-white">Trending Foods</h2>
+                    <h2 className="text-3xl font-semibold mb-6 text-center text-white">Trending Foods</h2>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {trendingFoods.length > 0 ? (
                             trendingFoods.map((food, index) => (
@@ -163,7 +163,7 @@ const Home = () => {
 
             
             <div className="bg-gradient-to-r from-green-300 via-green-500 to-green-700 p-8 mt-8 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-semibold text-white text-center mb-6">Our Restaurant Services</h2>
+                <h2 className="text-3xl font-bold text-black text-center mb-6">Our Restaurant Services</h2>
                 <div className="flex flex-col lg:flex-row justify-center gap-8">
                     <div className="bg-slate-800 p-6 rounded-lg shadow-lg text-center flex flex-col items-center">
                         <img

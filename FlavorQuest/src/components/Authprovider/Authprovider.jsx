@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
             setIsRegistered(true); 
 
             const user = { email: userCredential.user.email };
-            axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+            axios.post('https://flavor-server-side.vercel.app/jwt', user, { withCredentials: true })
                 .then(res => {
                     console.log('login token', res.data);
                     setIsRegistered(true); 
@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
             setIsRegistered(false); 
 
             const user = { email: userCredential.user.email };
-            axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+            axios.post('https://flavor-server-side.vercel.app/jwt', user, { withCredentials: true })
                 .then(res => {
                     console.log('login token', res.data);
                     setIsRegistered(true); 
@@ -112,7 +112,7 @@ const AuthProvider = ({ children }) => {
                 setIsRegistered(true);
             } else {
                 axios
-                    .post('http://localhost:5000/logout', {}, { withCredentials: true })
+                    .post('https://flavor-server-side.vercel.app/logout', {}, { withCredentials: true })
                     .then(res => {
                         console.log('logout', res.data);
                     })

@@ -12,7 +12,7 @@ const MyOrders = () => {
     const fetchOrders = async () => {
       try {
         
-        const purchasesResponse = await fetch("http://localhost:5000/purchases", {
+        const purchasesResponse = await fetch("https://flavor-server-side.vercel.app/purchases", {
             
             credentials: "include", 
         });
@@ -20,7 +20,7 @@ const MyOrders = () => {
         const purchasesData = await purchasesResponse.json();
 
         
-        const foodsResponse = await fetch("http://localhost:5000/foods");
+        const foodsResponse = await fetch("https://flavor-server-side.vercel.app/foods");
         const foodsData = await foodsResponse.json();
 
         
@@ -61,7 +61,7 @@ const MyOrders = () => {
     if (!result.isConfirmed) return;
 
     try {
-      await fetch(`http://localhost:5000/purchases/${id}`, { method: "DELETE" });
+      await fetch(`https://flavor-server-side.vercel.app/purchases/${id}`, { method: "DELETE" });
       setOrders((prevOrders) => prevOrders.filter((order) => order._id !== id));
       Swal.fire("Deleted!", "Your order has been deleted.", "success");
     } catch (error) {
@@ -78,7 +78,7 @@ const MyOrders = () => {
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4 text-green-500">My Orders</h2>
       {orders.length === 0 ? (
-        <p className="text-black">No orders found.</p>
+        <p className="text-green-500">No orders found.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  rounded-lg">
           {orders.map((order) => (

@@ -11,7 +11,7 @@ const AllFoods = () => {
     useEffect(() => {
         
         axios
-            .get("http://localhost:5000/foods")
+            .get("https://flavor-server-side.vercel.app/foods")
             .then((response) => setFoods(response.data))
             .catch((error) => console.error("Error fetching foods:", error));
     }, []);

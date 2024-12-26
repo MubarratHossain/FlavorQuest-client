@@ -10,7 +10,7 @@ const Food = () => {
 
     const fetchFoodDetails = () => {
         axios
-            .get(`http://localhost:5000/foods/${id}`)
+            .get(`https://flavor-server-side.vercel.app/foods/${id}`)
             .then((response) => setFood(response.data))
             .catch((error) => console.error("Error fetching food details:", error));
     };

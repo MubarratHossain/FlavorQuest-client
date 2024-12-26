@@ -3,29 +3,28 @@ import { Navigate, Outlet } from "react-router-dom";
 import { AuthContext } from "../Authprovider/Authprovider";
 import axios from "axios";
 
-
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
-  const [isTokenValid, setIsTokenValid] = useState(null); 
+  const [isTokenValid, setIsTokenValid] = useState(null);
 
   useEffect(() => {
     const validateToken = async () => {
+      if (!user) {
+        setIsTokenValid(false);
+        return;
+      }
       try {
-        const response = await axios.get("http://localhost:5000/validate-token", {
-          withCredentials: true, 
+        const { data } = await axios.get("https://flavor-server-side.vercel.app/validate-token", {
+          withCredentials: true,
         });
-        setIsTokenValid(response.data.isValid);
+        setIsTokenValid(data.isValid);
       } catch (error) {
         console.error("Token validation failed:", error);
         setIsTokenValid(false);
       }
     };
 
-    if (user) {
-      validateToken();
-    } else {
-      setIsTokenValid(false);
-    }
+    validateToken();
   }, [user]);
 
   if (loading || isTokenValid === null) {

@@ -15,10 +15,13 @@ const UpdateFood = () => {
         description: '',
     });
 
+    // Fetch food details
     useEffect(() => {
         const fetchFood = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/foods/${id}`);
+                const response = await axios.get(`https://flavor-server-side.vercel.app/foods/${id}`, {
+                    withCredentials: true, // Include credentials (cookies or authentication tokens)
+                });
                 setFormData(response.data);
             } catch (error) {
                 Swal.fire({
@@ -33,6 +36,7 @@ const UpdateFood = () => {
         fetchFood();
     }, [id]);
 
+    // Handle input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -41,10 +45,13 @@ const UpdateFood = () => {
         }));
     };
 
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:5000/foods/${id}`, formData);
+            const response = await axios.put(`https://flavor-server-side.vercel.app/foods/${id}`, formData, {
+                withCredentials: true, // Include credentials for PUT request
+            });
             if (response.status === 200) {
                 Swal.fire({
                     title: 'Success!',
