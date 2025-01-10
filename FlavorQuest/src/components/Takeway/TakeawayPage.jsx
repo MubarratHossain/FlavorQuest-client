@@ -125,7 +125,7 @@ const TakeawayPage = () => {
       )}
 
       {/* Food Cards Section for Takeaway */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 gap-6 mt-8">
         {foods.map((food) => (
           <div
             key={food._id}
@@ -134,7 +134,7 @@ const TakeawayPage = () => {
             <img
               src={food.foodImage}
               alt={food.foodName}
-              className="w-full h-48 lg:h-96 xl:h-96 2xl:h-[400px] object-cover rounded-md mb-4"
+              className="w-full h-40 md:h-52 lg:h-48  rounded-lg mb-4"
             />
             <h3 className="text-xl font-semibold text-black mb-2">{food.foodName}</h3>
             <p className="text-gray-700">Category: {food.foodCategory}</p>
