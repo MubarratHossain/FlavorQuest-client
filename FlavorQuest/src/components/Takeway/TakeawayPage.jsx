@@ -134,7 +134,7 @@ const TakeawayPage = () => {
             <img
               src={food.foodImage}
               alt={food.foodName}
-              className="w-full h-48 object-cover rounded-md mb-4"
+              className="w-full h-48 lg:h-96 xl:h-96 2xl:h-[400px] object-cover rounded-md mb-4"
             />
             <h3 className="text-xl font-semibold text-black mb-2">{food.foodName}</h3>
             <p className="text-gray-700">Category: {food.foodCategory}</p>

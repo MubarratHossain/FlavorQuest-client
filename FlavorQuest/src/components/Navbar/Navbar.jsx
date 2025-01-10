@@ -68,7 +68,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="navbar bg-gradient-to-r from-green-400 via-yellow-400 to-orange-400 text-black dark:text-white rounded-lg sticky top-0 opacity-90 ">
+        <div className="navbar bg-gradient-to-r from-green-400 via-yellow-400 to-orange-400 text-black dark:text-white rounded-lg sticky top-0 opacity-90 z-50 ">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden text-sm">

@@ -13,7 +13,7 @@ const chefsData = [
         image: "https://i.ibb.co.com/D9bnBMg/thank.webp"
     },
     {
-        name: "The Pastry Queen",
+        name: "The Pastry Master",
         title: "Dessert Expert",
         image: "https://i.ibb.co.com/nDqqtDP/DSC5526-1-scaled.jpg"
     },
@@ -72,7 +72,7 @@ const BookTable = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {chefsData.map((chef, index) => (
                     <div key={index} className="bg-gradient-to-r from-green-400 via-yellow-400 to-orange-400  p-6 rounded-lg shadow-xl">
-                        <img src={chef.image} alt={chef.name} className="w-full h-64 object-cover rounded-md mb-4" />
+                        <img src={chef.image} alt={chef.name} className="w-full h-64 lg:h-96 xl:h-96 2xl-h-[400px] object-cover rounded-md mb-4" />
                         <h2 className="text-xl font-semibold text-black mb-2">{chef.name}</h2>
                         <p className="text-lg text-black italic mb-4">{chef.title}</p>
                         <button
