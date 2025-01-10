@@ -134,7 +134,7 @@ const Home = () => {
                                     <img
                                         src={food.foodImage}
                                         alt={food.foodName}
-                                        className="w-full h-40 md:h-52 lg:h-48  rounded-lg mb-4"
+                                        className="w-full h-40 md:h-44 lg:h-52 xl:h-64 2xl:h-72 rounded-lg mb-4"
                                     />
                                     <span className="text-lg font-semibold text-black mb-2">{food.foodName}</span>
                                     <span className="text-gray-800 mb-2">Quantity Sold: {food.quantity}</span>
