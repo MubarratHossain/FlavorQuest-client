@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Banner from "../Banner/Banner";
 import { FaPlus, FaListAlt, FaShoppingCart, FaTag } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import img from './Orange and Yellow Simple Street Food Logo.gif'
 
 const Home = () => {
     const [foods, setFoods] = useState([]);
@@ -92,24 +93,33 @@ const Home = () => {
         <div>
             <Banner />
             <div className="flex flex-col lg:flex-row mt-5 gap-6 px-6">
-                <div className="lg:w-1/4 bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700  rounded-lg p-6 shadow-lg">
+                <div className="lg:w-1/4 lg:h-[400px] bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700  rounded-lg p-6 shadow-lg">
                     <h2 className="text-2xl font-semibold mb-6 text-center text-black">Options</h2>
                     <Link to='/addFoods'>
-                        <button className="btn btn-outline bg-white hover:bg-yellow-300 text-gray-800 font-semibold w-full mb-4 flex items-center justify-center gap-2 py-3 rounded-lg">
+                        <button className="btn btn-outline bg-white hover:bg-yellow-300 hover:text-green-600  font-semibold w-full mb-4 flex items-center justify-center gap-2 py-3 rounded-lg">
                             <FaPlus /> Add Foods
                         </button>
                     </Link>
                     <Link to='/myFoods'>
-                        <button className="btn btn-outline bg-white hover:bg-yellow-300 text-gray-800 font-semibold w-full mb-4 flex items-center justify-center gap-2 py-3 rounded-lg">
+                        <button className="btn btn-outline bg-white hover:bg-yellow-300 hover:text-green-600 font-semibold w-full mb-4 flex items-center justify-center gap-2 py-3 rounded-lg">
                             <FaListAlt /> My Foods
                         </button>
                     </Link>
                     <Link to='myOrders'>
-                        <button className="btn btn-outline bg-white hover:bg-yellow-300 text-gray-800 font-semibold w-full flex items-center justify-center gap-2 py-3 rounded-lg">
+                        <button className="btn btn-outline bg-white hover:bg-yellow-300 hover:text-green-600  font-semibold w-full flex items-center justify-center gap-2 py-3 rounded-lg">
                             <FaShoppingCart /> My Orders
                         </button>
                     </Link>
+                    <div className="mt-4 flex justify-center">
+                        <img
+                            src={img}
+                            alt="Food Logo"
+                            className="h-auto w-full max-w-[200px] md:max-w-[300px] lg:max-w-[400px] object-contain"
+                        />
+                    </div>
+
                 </div>
+
 
                 <div className="lg:w-3/4 bg-slate-800 border border-gray-300 rounded-lg p-6 shadow-lg">
                     <h2 className="text-3xl font-semibold mb-6 text-center text-white">Trending Foods</h2>
@@ -161,7 +171,7 @@ const Home = () => {
                 </div>
             </div>
 
-            
+
             <div className="bg-gradient-to-r from-green-300 via-green-500 to-green-700 p-8 mt-8 rounded-lg shadow-lg">
                 <h2 className="text-3xl font-bold text-black text-center mb-6">Our Restaurant Services</h2>
                 <div className="flex flex-col lg:flex-row justify-center gap-8">

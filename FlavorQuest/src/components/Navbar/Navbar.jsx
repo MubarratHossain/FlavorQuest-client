@@ -96,7 +96,7 @@ const Navbar = () => {
                         <Link to='/gallery'><li><a>  <FaImages />Gallery</a></li></Link>
                     </ul>
                 </div>
-                <a className=" btn-ghost text-xl">FlavorQuest</a>
+                <a className=" btn-ghost text-[16px] md:text-xl lg:text-xl">FlavorQuest</a>
             </div>
 
             <div className="navbar-center hidden lg:flex">

@@ -48,12 +48,12 @@ const AllFoods = () => {
                     {filteredFoods.map((food) => (
                         <div
                             key={food._id}
-                            className="bg-white p-5 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700"
+                            className="bg-white p-5 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700 flex flex-col justify-between"
                         >
                             <img
                                 src={food.foodImage}
                                 alt={food.foodName}
-                                className="w-full h-48 object-cover rounded-md mb-3"
+                                className="w-full h-48 lg:h-64 xl:h-96 2xl:h-[400px] object-cover rounded-md mb-3"
                             />
                             <h2 className="text-xl font-semibold">{food.foodName}</h2>
                             <p className="text-gray-600">Category: {food.foodCategory}</p>
@@ -69,7 +69,7 @@ const AllFoods = () => {
                             
                             <Link
                                 to={`/food/${food._id}`}
-                                className="block text-center mt-3 text-blue-500 bg-blue-100 hover:bg-blue-300 py-2 px-4 rounded-lg transition-all duration-300"
+                                className="block text-center mt-3 text-blue-500 bg-blue-100 hover:bg-blue-300 py-2 px-4 rounded-lg transition-all duration-300 "
                             >
                                 Details
                             </Link>
