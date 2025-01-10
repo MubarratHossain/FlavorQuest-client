@@ -7,8 +7,6 @@
 FlavorQuest is an interactive web platform designed for culinary enthusiasts to explore, discover, and share diverse flavors from around the world. The website provides users with various culinary services like branding, design, marketing, and advertisement. Whether you are a food lover or a business in the food industry, FlavorQuest brings everything together in one place.
 
 ## Live URL
-You can explore the live project at: [https://job-portal-20a59.web.app/] 
-## Another live link
 You can explore the live project at: [https://zippy-sawine-1e9523.netlify.app/] 
   
 ## Key Features
@@ -39,4 +37,4 @@ Here are the key npm packages used in the project:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/programming-hero-web-course2/b10a11-client-side-MubarratHossain
+   git clone https://github.com/MubarratHossain/FlavorQuest-client.git
