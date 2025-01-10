@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="footer bg-gradient-to-r from-green-400 via-yellow-400 to-orange-400 text-black p-10 my-4 rounded-lg">
+    <footer className="footer bg-gradient-to-r from-green-400 via-yellow-400 to-orange-400 text-black p-10 mt-4 rounded-lg">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         
         <div className="space-y-4">

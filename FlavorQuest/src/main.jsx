@@ -19,6 +19,10 @@ import MyFoods from './components/MyFoods/MyFoods.jsx';
 import UpdateFood from './components/UpdateFood/UpdateFood.jsx';
 import MyOrders from './components/MyOrders/MyOrders.jsx';
 import Gallery from './components/Gallery/Gallery.jsx';
+import OrderPage from './components/Order/OrderPage.jsx';
+import TakeawayPage from './components/Takeway/TakeawayPage.jsx';
+import DineInPage from './components/DineIn/DineIn.jsx';
+import BookTable from './components/Booktable/Booktable.jsx';
 
 
 const router = createBrowserRouter([
@@ -69,6 +73,21 @@ const router = createBrowserRouter([
       {
         path:'/gallery',
         element:<Gallery></Gallery>,
+      },
+      {
+        path:'/order',
+        element:<OrderPage></OrderPage>,
+      },
+      {
+        path:'/takeaway',
+        element:<TakeawayPage></TakeawayPage>,
+      },
+      {
+        path:'/dineIn',
+        element:<DineInPage></DineInPage>,
+      },{
+        path:'/bookTable',
+        element:<BookTable></BookTable>,
       },
      
     ],

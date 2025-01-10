@@ -15,7 +15,8 @@ const Home = () => {
         'https://i.ibb.co.com/yPPfHB5/ratio3x2-1920.jpg',
         'https://i.ibb.co.com/PF52m0M/IMG-5891-900x900.jpg',
         'https://i.ibb.co.com/nDqqtDP/DSC5526-1-scaled.jpg',
-        'https://i.ibb.co.com/m6FT7s0/1663285202372.jpg'
+        'https://i.ibb.co.com/m6FT7s0/1663285202372.jpg',
+        'https://i.ibb.co.com/1Qr2YKW/Famous-Asian-Chefs.webp'
     ];
 
     useEffect(() => {
@@ -245,9 +246,11 @@ const Home = () => {
                             <p className="text-lg text-white mb-6">
                                 Our expert chefs are dedicated to bringing you the finest culinary experience. From innovative dishes to traditional favorites, we're here to craft a meal you'll never forget.
                             </p>
+                            <Link to="/bookTable">
                             <button className="bg-green-500 text-black font-bold py-2 px-6 rounded-md hover:bg-green-600 transition duration-300">
                                 Book a Table
                             </button>
+                            </Link>
                         </div>
                     </div>
                 </section>
